@@ -28,21 +28,25 @@ for instance in training_data:
 
 
 lowest_error = [inf, 0, 0]
-for p in range(1, 3):
-    for k in range(1, len(training_data)):
 
+for p in range(1, 3):
+    
+    for k in range(1, len(training_data)):
+        
         # fitting the knn to the data
         clf = KNeighborsClassifier(n_neighbors=k, p=p)
         clf = clf.fit(X, Y)
 
         wrongCount = 0
         for instance in testing_data:
+            
             class_predicted = clf.predict([instance[:-1]])
 
             if class_predicted != instance[-1]:
                 wrongCount += 1
 
         if wrongCount < lowest_error[0]:
+            
             lowest_error[0] = wrongCount
             lowest_error[1] = k
             lowest_error[2] = p
