@@ -30,13 +30,9 @@ with open('./data/testing-data.csv', 'r') as csvfile:
 
 
 lowest_error = [inf, 0, True, 0]
-
 for w in n:
-
     for b in r:
-
         for a in range(1, 2):
-
             # Create a Neural Network classifier
             if a == 0:
                 clf = Perceptron(eta0=w, shuffle=b, max_iter=1000)
@@ -49,14 +45,12 @@ for w in n:
 
             wrongCount = 0
             for instance in testing_data:
-
                 class_predicted = clf.predict([instance[:-1]])
 
                 if class_predicted != instance[-1]:
                     wrongCount += 1
 
             if wrongCount < lowest_error[0]:
-
                 lowest_error[0] = wrongCount
                 lowest_error[1] = w
                 lowest_error[2] = b
