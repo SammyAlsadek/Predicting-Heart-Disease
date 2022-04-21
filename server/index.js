@@ -12,9 +12,20 @@ app.post('/createPrediction', jsonParser, async (req, res) => {
     console.log("calculating...");
 
     const user = req.body;
+    var script = "";
+
+    if (user.algorithm === "0") {
+        script = "../scripts/knn.py";
+    }
+    if (user.algorithm === "1") {
+        script = "../scripts/svm.py";
+    }
+    if (user.algorithm === "2") {
+        script = "../scripts/nn.py";
+    }
 
     const childPython = spawn('python', [
-        '../scripts/knn.py',
+        script,
         user.age,
         user.sex,
         user.cp,

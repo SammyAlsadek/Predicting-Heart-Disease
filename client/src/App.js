@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 function App() {
+  const [algorithm, setAlgorithm] = useState(0);
   const [age, setAge] = useState(0);
   const [sex, setSex] = useState(0);
   const [cp, setCp] = useState(0);
@@ -22,7 +23,9 @@ function App() {
   }, []);
 
   const predictUser = () => {
+    setPrediction("Calculating Prediction...");
     Axios.post("http://localhost:3001/createPrediction", {
+      algorithm,
       age,
       sex,
       cp,
@@ -49,6 +52,7 @@ function App() {
       </div>
 
       <div className='Inputs'>
+        <input type='number' placeholder='ml algorithm 0 = knn, 1 = svm, 2 = nn' onChange={(event) => { setAlgorithm(event.target.value) }} />
         <input type='number' placeholder='age in years' onChange={(event) => { setAge(event.target.value) }} />
         <input type='number' placeholder='sex (1 = male; 0 = female)' onChange={(event) => { setSex(event.target.value) }} />
         <input type='number' placeholder='chest pain type -- Value 1: typical angina -- Value 2: atypical angina -- Value 3: non-anginal pain -- Value 4: asymptomatic' onChange={(event) => { setCp(event.target.value) }} />
