@@ -17,7 +17,7 @@ function App() {
   const [slope, setSlope] = useState(0);
   const [ca, setCa] = useState(0);
   const [thal, setThal] = useState(0);
-  const [prediction, setPrediction] = useState("");
+  const [prediction, setPrediction] = useState("(blank)");
 
   useEffect(() => {
   }, []);
@@ -45,31 +45,62 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="app">
 
-      <div className='Header'>
+      <div className='header'>
+        <img className='header_logo' src='https://www.iconpacks.net/icons/1/free-heart-icon-431-thumb.png' alt='' />
         <h1>Heart Disease Predictor</h1>
       </div>
 
-      <div className='Inputs'>
-        <input type='number' placeholder='ml algorithm 0 = knn, 1 = svm, 2 = nn' onChange={(event) => { setAlgorithm(event.target.value) }} />
-        <input type='number' placeholder='age in years' onChange={(event) => { setAge(event.target.value) }} />
-        <input type='number' placeholder='sex (1 = male; 0 = female)' onChange={(event) => { setSex(event.target.value) }} />
-        <input type='number' placeholder='chest pain type -- Value 1: typical angina -- Value 2: atypical angina -- Value 3: non-anginal pain -- Value 4: asymptomatic' onChange={(event) => { setCp(event.target.value) }} />
-        <input type='number' placeholder='resting blood pressure' onChange={(event) => { setTrestbps(event.target.value) }} />
-        <input type='number' placeholder='serum cholestoral' onChange={(event) => { setChol(event.target.value) }} />
-        <input type='number' placeholder='(fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)' onChange={(event) => { setFbs(event.target.value) }} />
-        <input type='number' placeholder='resting electrocardiographic results -- Value 0: normal -- Value 1: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV) -- Value 2: showing probable or definite left ventricular hypertrophy by Estes criteria' onChange={(event) => { setRestecg(event.target.value) }} />
-        <input type='number' placeholder='maximum heart rate achieved' onChange={(event) => { setThalach(event.target.value) }} />
-        <input type='number' placeholder='exercise induced angina (1 = yes; 0 = no)' onChange={(event) => { setExang(event.target.value) }} />
-        <input type='number' placeholder='ST depression induced by exercise relative to rest' onChange={(event) => { setOldpeak(event.target.value) }} />
-        <input type='number' placeholder='the slope of the peak exercise ST segment -- Value 1: upsloping -- Value 2: flat -- Value 3: downsloping' onChange={(event) => { setSlope(event.target.value) }} />
-        <input type='number' placeholder='number of major vessels (0-3) colored by flourosopy' onChange={(event) => { setCa(event.target.value) }} />
-        <input type='number' placeholder='thal: 3 = normal; 6 = fixed defect; 7 = reversable defect' onChange={(event) => { setThal(event.target.value) }} />
-        <button onClick={predictUser}> Predict </button>
+      <div className='form'>
+        <h4>Machine Learning Algorithm (0 = k-nearest neighbors, 1 = support vector machine, 2 = neural networks):</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setAlgorithm(event.target.value) }} />
+
+        <h4>Age in years:</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setAge(event.target.value) }} />
+        
+        <h4>Sex (1 = male; 0 = female):</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setSex(event.target.value) }} />
+        
+        <h4>Chest pain type (1 = typical angina, 2 = atypical angina, 3 = non-anginal pain, 4 = asymptomatic):</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setCp(event.target.value) }} />
+        
+        <h4>Resting blood pressure:</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setTrestbps(event.target.value) }} />
+        
+        <h4>Serum cholestoral:</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setChol(event.target.value) }} />
+        
+        <h4>Fasting blood sugar > 120 mg/dl (1 = true; 0 = false):</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setFbs(event.target.value) }} />
+        
+        <h4>Resting electrocardiographic results ( 0 = normal, 1 = having ST-T wave abnormality, 2 = showing probable or definite left ventricular hypertrophy by Estes criteria):</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setRestecg(event.target.value) }} />
+        
+        <h4>Maximum heart rate achieved:</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setThalach(event.target.value) }} />
+        
+        <h4>Exercise induced angina (1 = yes, 0 = no):</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setExang(event.target.value) }} />
+        
+        <h4>ST depression induced by exercise relative to rest:</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setOldpeak(event.target.value) }} />
+        
+        <h4>The slope of the peak exercise ST segment (1 = upsloping, 2 = flat, 3 = downsloping):</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setSlope(event.target.value) }} />
+        
+        <h4>Number of major vessels (0-3) colored by flourosopy:</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setCa(event.target.value) }} />
+        
+        <h4>Thal (3 = normal, 6 = fixed defect, 7 = reversable defect):</h4>
+        <input className='textbox' type='number' placeholder='' onChange={(event) => { setThal(event.target.value) }} />
+        
+        <div className='button-border'>
+          <button className='button' onClick={predictUser}> Predict </button>
+        </div>
       </div>
 
-      <div className='Header'>
+      <div className='footer'>
         <h1>Prediction = {prediction}</h1>
       </div>
 
