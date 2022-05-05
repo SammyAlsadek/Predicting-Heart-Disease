@@ -76,9 +76,9 @@ for elementInC in c:
                     lowest_error[5] = user_predicted
 
 # print the accuracy
-accuracy = 1 - (lowest_error[0] / len(testing_data))
+accuracy = (1 - (lowest_error[0] / len(testing_data))) * 100
 if lowest_error[3]:
-    print(f"Positive with {'%.2f' % accuracy}% Accuracy.")
+    print(f"Positive with {int(accuracy)}% Accuracy.")
 else:
-    print(f"Negative with {'%.2f' % accuracy}% Accuracy.")
+    print(f"Negative with {int(accuracy)}% Accuracy.")
 sys.exit(int(lowest_error[5]))
