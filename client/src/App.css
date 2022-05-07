@@ -1,5 +1,6 @@
 body {
-    margin: 0; 
+    margin: auto;
+    width: 50%;
     padding: 0;
     background-position: center;
     background-size: cover;
@@ -68,4 +69,8 @@ body {
     line-height: 30px;
     padding: 0 20px;
     font-size: 15px;
+}
+
+input[type='radio'] {
+    margin-left: 20px;
 }

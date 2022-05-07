@@ -53,51 +53,149 @@ function App() {
       </div>
 
       <div className='form'>
-        <h4>Machine Learning Algorithm (0 = k-nearest neighbors, 1 = support vector machine, 2 = neural networks):</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setAlgorithm(event.target.value) }} />
+
+        <h4>Machine Learning Algorithm:</h4>
+        <form>
+          <div>
+            <input type='radio' id='knn' name='algo' value='0' onChange={(event) => { setAlgorithm(event.target.value) }} />
+            <label for='knn'>K-Nearest Neighbors</label>
+
+            <input type='radio' id='svm' name='algo' value='1' onChange={(event) => { setAlgorithm(event.target.value) }} />
+            <label for='svm'>Support Vector Machine</label>
+
+            <input type='radio' id='nn' name='algo' value='2' onChange={(event) => { setAlgorithm(event.target.value) }} />
+            <label for='nn'>Neural Networks</label>
+          </div>
+        </form>
 
         <h4>Age in years:</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setAge(event.target.value) }} />
+        <input className='textbox' type='number' placeholder='' min='0' onChange={(event) => { event.target.value = Math.abs(event.target.value); setAge(event.target.value) }} />
         
-        <h4>Sex (1 = male; 0 = female):</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setSex(event.target.value) }} />
+        <h4>Sex:</h4>
+        <form>
+          <div>
+            <input type='radio' id='male' name='sex' value='1' onChange={(event) => { setSex(event.target.value) }} />
+            <label for='male'>Male</label>
+
+            <input type='radio' id='female' name='sex' value='0' onChange={(event) => { setSex(event.target.value) }} />
+            <label for='female'>Female</label>
+          </div>
+        </form>
         
-        <h4>Chest pain type (1 = typical angina, 2 = atypical angina, 3 = non-anginal pain, 4 = asymptomatic):</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setCp(event.target.value) }} />
+        <h4>Chest Pain Type:</h4>
+        <form>
+          <div>
+            <input type='radio' id='ta' name='chest' value='0' onChange={(event) => { setCp(event.target.value) }} />
+            <label for='ta'>Typical Angina</label>
+
+            <input type='radio' id='aa' name='chest' value='1' onChange={(event) => { setCp(event.target.value) }} />
+            <label for='aa'>Atypical Angina</label>
+
+            <input type='radio' id='nap' name='chest' value='2' onChange={(event) => { setCp(event.target.value) }} />
+            <label for='nap'>Non-Anginal Pain</label>
+
+            <input type='radio' id='asymp' name='chest' value='3' onChange={(event) => { setCp(event.target.value) }} />
+            <label for='asymp'>Asymptomatic</label>
+          </div>
+        </form>
         
-        <h4>Resting blood pressure:</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setTrestbps(event.target.value) }} />
+        <h4>Resting Blood Pressure:</h4>
+        <input className='textbox' type='number' placeholder='' min='0' onChange={(event) => { event.target.value = Math.abs(event.target.value); setTrestbps(event.target.value) }} />
         
         <h4>Serum cholestoral:</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setChol(event.target.value) }} />
+        <input className='textbox' type='number' placeholder='' min='0' onChange={(event) => { event.target.value = Math.abs(event.target.value); setChol(event.target.value) }} />
         
-        <h4>Fasting blood sugar > 120 mg/dl (1 = true; 0 = false):</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setFbs(event.target.value) }} />
+        <h4>Fasting blood sugar {'>'} 120 mg/dl:</h4>
+        <form>
+          <div>
+            <input type='radio' id='yes' name='fbs' value='1' onChange={(event) => { setFbs(event.target.value) }} />
+            <label for='yes'>Yes</label>
+
+            <input type='radio' id='no' name='fbs' value='0' onChange={(event) => { setFbs(event.target.value) }} />
+            <label for='no'>No</label>
+          </div>
+        </form>
         
-        <h4>Resting electrocardiographic results ( 0 = normal, 1 = having ST-T wave abnormality, 2 = showing probable or definite left ventricular hypertrophy by Estes criteria):</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setRestecg(event.target.value) }} />
+        <h4>Resting Electrocardiographic Results:</h4>
+        <form>
+          <div>
+            <input type='radio' id='normal' name='rer' value='0' onChange={(event) => { setRestecg(event.target.value) }} />
+            <label for='normal'>Normal</label>
+
+            <input type='radio' id='have' name='rer' value='1' onChange={(event) => { setRestecg(event.target.value) }} />
+            <label for='have'>Having ST-T Wave Abnormality</label>
+
+            <input type='radio' id='show' name='rer' value='2' onChange={(event) => { setRestecg(event.target.value) }} />
+            <label for='show'>Showing probable or definite left ventricular hypertrophy by Estes criteria</label>
+          </div>
+        </form>
         
-        <h4>Maximum heart rate achieved:</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setThalach(event.target.value) }} />
+        <h4>Maximum Heart Rate Achieved:</h4>
+        <input className='textbox' type='number' placeholder='' min='0' onChange={(event) => { event.target.value = Math.abs(event.target.value); setThalach(event.target.value) }} />
         
-        <h4>Exercise induced angina (1 = yes, 0 = no):</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setExang(event.target.value) }} />
+        <h4>Exercise Induced Angina:</h4>
+        <form>
+          <div>
+            <input type='radio' id='yes' name='eia' value='1' onChange={(event) => { setExang(event.target.value) }} />
+            <label for='yes'>Yes</label>
+
+            <input type='radio' id='no' name='iea' value='0' onChange={(event) => { setExang(event.target.value) }} />
+            <label for='no'>No</label>
+          </div>
+        </form>
         
         <h4>ST depression induced by exercise relative to rest:</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setOldpeak(event.target.value) }} />
+        <input className='textbox' type='number' placeholder='' min='0' onChange={(event) => { event.target.value = Math.abs(event.target.value); setOldpeak(event.target.value) }} />
         
-        <h4>The slope of the peak exercise ST segment (1 = upsloping, 2 = flat, 3 = downsloping):</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setSlope(event.target.value) }} />
-        
-        <h4>Number of major vessels (0-3) colored by flourosopy:</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setCa(event.target.value) }} />
-        
-        <h4>Thal (3 = normal, 6 = fixed defect, 7 = reversable defect):</h4>
-        <input className='textbox' type='number' placeholder='' onChange={(event) => { setThal(event.target.value) }} />
+        <h4>The slope of the peak exercise ST segment:</h4>
+        <form>
+          <div>
+            <input type='radio' id='up' name='slope' value='1' onChange={(event) => { setSlope(event.target.value) }} />
+            <label for='up'>Upsloping</label>
+
+            <input type='radio' id='flat' name='slope' value='2' onChange={(event) => { setSlope(event.target.value) }} />
+            <label for='flat'>Flat</label>
+
+            <input type='radio' id='down' name='slope' value='3' onChange={(event) => { setSlope(event.target.value) }} />
+            <label for='down'>Downsloping</label>
+          </div>
+        </form>
+
+        <h4>Number of major vessels colored by flourosopy:</h4>
+        <form>
+          <div>
+            <input type='radio' id='0' name='ca' value='0' onChange={(event) => { setCa(event.target.value) }} />
+            <label for='0'>0</label>
+
+            <input type='radio' id='1' name='ca' value='1' onChange={(event) => { setCa(event.target.value) }} />
+            <label for='1'>1</label>
+
+            <input type='radio' id='2' name='ca' value='2' onChange={(event) => { setCa(event.target.value) }} />
+            <label for='2'>2</label>
+
+            <input type='radio' id='3' name='ca' value='3' onChange={(event) => { setCa(event.target.value) }} />
+            <label for='3'>3</label>
+          </div>
+        </form>
+
+        <h4>Thal:</h4>
+        <form>
+          <div>
+            <input type='radio' id='normal' name='thal' value='3' onChange={(event) => { setThal(event.target.value) }} />
+            <label for='normal'>Normal</label>
+
+            <input type='radio' id='fd' name='thal' value='6' onChange={(event) => { setThal(event.target.value) }} />
+            <label for='fd'>Fixed Defect</label>
+
+            <input type='radio' id='rd' name='thal' value='7' onChange={(event) => { setThal(event.target.value) }} />
+            <label for='rd'>Reversable Defect</label>
+          </div>
+        </form>
         
         <div className='button-border'>
           <button className='button' onClick={predictUser}> Predict </button>
         </div>
+        
       </div>
 
       <div className='footer'>
