@@ -10,7 +10,7 @@ body {
 
 .header {
     display: flex;
-    align-items: center;
+    justify-content: center;
     z-index: 100;
     background-color: #728A5F;
     color: white;
@@ -27,11 +27,16 @@ body {
     margin: auto;
     padding-left: 15px;
     padding-right: 15px;
+    counter-reset: h4;
+}
+h4::before {
+    content: counter(h4)'. ';
+    counter-increment: h4;
 }
 
 .footer {
     display: flex;
-    align-items: center;
+    justify-content: center;
     z-index: 100;
     background-color: #728A5F;
     color: white;
@@ -59,7 +64,7 @@ body {
 
 .button-border {
     padding: 15px;
-    padding-left: 45%;
+    text-align: center;
 }
 
 .textbox {

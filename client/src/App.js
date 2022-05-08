@@ -139,7 +139,7 @@ function App() {
             <input type='radio' id='yes' name='eia' value='1' onChange={(event) => { setExang(event.target.value) }} />
             <label for='yes'>Yes</label>
 
-            <input type='radio' id='no' name='iea' value='0' onChange={(event) => { setExang(event.target.value) }} />
+            <input type='radio' id='no' name='eia' value='0' onChange={(event) => { setExang(event.target.value) }} />
             <label for='no'>No</label>
           </div>
         </form>
