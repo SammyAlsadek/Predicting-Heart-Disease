@@ -57,7 +57,7 @@ for w in n:
                 clf = Perceptron(eta0=w, shuffle=b, max_iter=1000)
             else:
                 clf = MLPClassifier(activation='logistic', learning_rate_init=w, hidden_layer_sizes=(
-                    25,), shuffle=b, max_iter=1000)
+                    25), shuffle=b, max_iter=1000)
 
             # Fit the Neural Network to the training data
             clf.fit(X_training, Y_training)
@@ -80,7 +80,7 @@ for w in n:
 
 # print the accuracy
 accuracy = (1 - (lowest_error[0] / len(testing_data))) * 100
-if lowest_error[3]:
+if lowest_error[4]:
     print(f"Positive with {int(accuracy)}% Accuracy.")
 else:
     print(f"Negative with {int(accuracy)}% Accuracy.")

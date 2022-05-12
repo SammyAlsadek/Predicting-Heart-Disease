@@ -85,24 +85,24 @@ function App() {
         <h4>Chest Pain Type:</h4>
         <form>
           <div>
-            <input type='radio' id='ta' name='chest' value='0' onChange={(event) => { setCp(event.target.value) }} />
+            <input type='radio' id='ta' name='chest' value='1' onChange={(event) => { setCp(event.target.value) }} />
             <label for='ta'>Typical Angina</label>
 
-            <input type='radio' id='aa' name='chest' value='1' onChange={(event) => { setCp(event.target.value) }} />
+            <input type='radio' id='aa' name='chest' value='2' onChange={(event) => { setCp(event.target.value) }} />
             <label for='aa'>Atypical Angina</label>
 
-            <input type='radio' id='nap' name='chest' value='2' onChange={(event) => { setCp(event.target.value) }} />
+            <input type='radio' id='nap' name='chest' value='3' onChange={(event) => { setCp(event.target.value) }} />
             <label for='nap'>Non-Anginal Pain</label>
 
-            <input type='radio' id='asymp' name='chest' value='3' onChange={(event) => { setCp(event.target.value) }} />
+            <input type='radio' id='asymp' name='chest' value='4' onChange={(event) => { setCp(event.target.value) }} />
             <label for='asymp'>Asymptomatic</label>
           </div>
         </form>
         
-        <h4>Resting Blood Pressure:</h4>
+        <h4>Resting Blood Pressure {'('}mm Hg{')'}:</h4>
         <input className='textbox' type='number' placeholder='' min='0' onChange={(event) => { event.target.value = Math.abs(event.target.value); setTrestbps(event.target.value) }} />
         
-        <h4>Serum cholestoral:</h4>
+        <h4>Serum Cholestoral {'('}mg/dl{')'}:</h4>
         <input className='textbox' type='number' placeholder='' min='0' onChange={(event) => { event.target.value = Math.abs(event.target.value); setChol(event.target.value) }} />
         
         <h4>Fasting blood sugar {'>'} 120 mg/dl:</h4>
