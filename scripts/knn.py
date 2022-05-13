@@ -87,6 +87,6 @@ user_predicted = best_model.predict([user])
 # print the accuracy
 accuracy = (1 - (lowest_error / len_test_data)) * 100
 if user_predicted:
-    print(f"Positive with {int(accuracy)}% Accuracy.")
+    print(f"Positive with {round(accuracy, 2)}% Accuracy.")
 else:
-    print(f"Negative with {int(accuracy)}% Accuracy.")
+    print(f"Negative with {round(accuracy, 2)}% Accuracy.")
