@@ -5,7 +5,10 @@ from sklearn import svm
 import csv
 import sys
 import argparse
+import os.path
+import pickle
 
+fname = '../stored models/svm.pkl'
 parser = argparse.ArgumentParser()
 parser.add_argument('age', type=int)
 parser.add_argument('sex', type=int)
@@ -25,60 +28,73 @@ user = [args.age, args.sex, args.cp, args.trestbps, args.chol, args.fbs,
         args.restecg, args.thalach, args.exang, args.oldpeak, args.slope, args.ca, args.thal]
 
 testing_data = []
-X_training = []
-Y_training = []
-
-c = [100, 10,  5, 1]
-degree = [3, 2, 1]
-kernel = ["poly", "linear", "rbf"]
-decision_function_shape = ["ovr", "ovo"]
-
-# read data
-with open('../data/training-data.csv', 'r') as csvfile:
-    reader = csv.reader(csvfile)
-    for row in reader:
-        X_training.append([float(x) for x in row[:-1]])
-        Y_training.append(float(row[-1]))
-
 with open('../data/testing-data.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         testing_data.append([float(x) for x in row])
 
-# created 4 nested for loops that will iterate through the values of c, degree, kernel, and decision_function_shape
-lowest_error = [inf, 0, 0, "", "", 0]
-for elementInC in c:
-    for elementInDegree in degree:
-        for elementInKernel in kernel:
-            for elementInDFS in decision_function_shape:
-                # create an SVM classifier that will test all combinations of c, degree, kernel, and decision_function_shape as hyperparameters
-                clf = svm.SVC(C=elementInC, degree=elementInDegree,
-                              kernel=elementInKernel, decision_function_shape=elementInDFS)
+# if the model doesn't exist
+if not os.path.isfile(fname):
+    
+    X_training = []
+    Y_training = []
 
-                # fit SVM to the training data
-                clf.fit(X_training, Y_training)
+    with open('../data/training-data.csv', 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            X_training.append([float(x) for x in row[:-1]])
+            Y_training.append(float(row[-1]))
+    
+    c = [100, 10,  5, 1]
+    degree = [3, 2, 1]
+    kernel = ["poly", "linear", "rbf"]
+    decision_function_shape = ["ovr", "ovo"]
 
-                user_predicted = clf.predict([user])
+    lowest_error = inf
+    best_model = None
 
-                wrongCount = 0
-                for instance in testing_data:
-                    class_predicted = clf.predict([instance[:-1]])
+    # create 4 nested for loops that will iterate through the values of c, degree, kernel, and decision_function_shape
+    for elementInC in c:
+        for elementInDegree in degree:
+            for elementInKernel in kernel:
+                for elementInDFS in decision_function_shape:
 
-                    if class_predicted != instance[-1]:
-                        wrongCount += 1
+                    # create an SVM classifier that will test all combinations of c, degree, kernel, and decision_function_shape as hyperparameters
+                    clf = svm.SVC(C=elementInC, degree=elementInDegree,
+                                kernel=elementInKernel, decision_function_shape=elementInDFS)
 
-                if wrongCount < lowest_error[0]:
-                    lowest_error[0] = wrongCount
-                    lowest_error[1] = elementInC
-                    lowest_error[2] = elementInDegree
-                    lowest_error[3] = elementInKernel
-                    lowest_error[4] = elementInDFS
-                    lowest_error[5] = user_predicted
+                    # fit SVM to the training data
+                    clf.fit(X_training, Y_training)
+
+                    # count number of wrong predictions
+                    wrongCount = 0
+                    for instance in testing_data:
+                        class_predicted = clf.predict([instance[:-1]])
+                        if class_predicted != instance[-1]:
+                            wrongCount += 1
+
+                    # keep the best model
+                    if wrongCount < lowest_error:
+                        lowest_error = wrongCount
+                        best_model = clf
+
+    # store the best model
+    with open(fname, 'wb') as f:
+        pickle.dump([lowest_error, best_model], f)
+
+else:
+    # or load the best model
+    with open(fname, 'rb') as f:
+        loadf = pickle.load(f)
+        lowest_error = loadf[0]
+        best_model = loadf[1]
+
+user_predicted = best_model.predict([user])
 
 # print the accuracy
-accuracy = (1 - (lowest_error[0] / len(testing_data))) * 100
-if lowest_error[5]:
+accuracy = (1 - (lowest_error / len(testing_data))) * 100
+if user_predicted:
     print(f"Positive with {int(accuracy)}% Accuracy.")
 else:
     print(f"Negative with {int(accuracy)}% Accuracy.")
-sys.exit(int(lowest_error[5]))
+sys.exit(int(user_predicted))
