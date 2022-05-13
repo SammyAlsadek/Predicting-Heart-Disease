@@ -3,7 +3,6 @@
 from math import inf
 from sklearn import svm
 import csv
-import sys
 import argparse
 import os.path
 import pickle
@@ -27,29 +26,29 @@ args = parser.parse_args()
 user = [args.age, args.sex, args.cp, args.trestbps, args.chol, args.fbs,
         args.restecg, args.thalach, args.exang, args.oldpeak, args.slope, args.ca, args.thal]
 
-testing_data = []
-with open('../data/testing-data.csv', 'r') as csvfile:
-    reader = csv.reader(csvfile)
-    for row in reader:
-        testing_data.append([float(x) for x in row])
-
 # if the model doesn't exist
 if not os.path.isfile(fname):
-    
+
     X_training = []
     Y_training = []
-
     with open('../data/training-data.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             X_training.append([float(x) for x in row[:-1]])
             Y_training.append(float(row[-1]))
-    
+
+    testing_data = []
+    with open('../data/testing-data.csv', 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            testing_data.append([float(x) for x in row])
+
     c = [100, 10,  5, 1]
     degree = [3, 2, 1]
     kernel = ["poly", "linear", "rbf"]
     decision_function_shape = ["ovr", "ovo"]
 
+    len_test_data = len(testing_data)
     lowest_error = inf
     best_model = None
 
@@ -80,7 +79,7 @@ if not os.path.isfile(fname):
 
     # store the best model
     with open(fname, 'wb') as f:
-        pickle.dump([lowest_error, best_model], f)
+        pickle.dump([lowest_error, best_model, len_test_data], f)
 
 else:
     # or load the best model
@@ -88,13 +87,13 @@ else:
         loadf = pickle.load(f)
         lowest_error = loadf[0]
         best_model = loadf[1]
+        len_test_data = loadf[2]
 
 user_predicted = best_model.predict([user])
 
 # print the accuracy
-accuracy = (1 - (lowest_error / len(testing_data))) * 100
+accuracy = (1 - (lowest_error / len_test_data)) * 100
 if user_predicted:
     print(f"Positive with {int(accuracy)}% Accuracy.")
 else:
     print(f"Negative with {int(accuracy)}% Accuracy.")
-sys.exit(int(user_predicted))
